@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'constants.dart';
 import 'icon_content.dart';
 import 'reusable_card.dart';
+import 'round_icon_button.dart';
 
 enum Gender {
   male,
@@ -19,6 +20,34 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender selectedGender;
   int height = 180;
+  int weight = 60;
+  int age = 30;
+
+  static const int minWeight = 20;
+  static const int maxWeight = 200;
+
+  static const int minAge = 1;
+  static const int maxAge = 100;
+
+  void setWeight(int weight) {
+    this.weight = weight;
+
+    if (this.weight < minWeight) {
+      this.weight = minWeight;
+    } else if (this.weight > maxWeight) {
+      this.weight = maxWeight;
+    }
+  }
+
+  void setAge(int age) {
+    this.age = age;
+
+    if (this.age < minAge) {
+      this.age = minAge;
+    } else if (this.age > maxAge) {
+      this.age = maxAge;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,11 +149,71 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     color: kActiveCardColor,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kValueTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: Icons.remove,
+                              onPressed: () =>
+                                  setState(() => setWeight(weight - 1)),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RoundIconButton(
+                              icon: Icons.add,
+                              onPressed: () =>
+                                  setState(() => setWeight(weight + 1)),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     color: kActiveCardColor,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kValueTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: Icons.remove,
+                              onPressed: () => setState(() => setAge(age - 1)),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            RoundIconButton(
+                              icon: Icons.add,
+                              onPressed: () => setState(() => setAge(age + 1)),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
