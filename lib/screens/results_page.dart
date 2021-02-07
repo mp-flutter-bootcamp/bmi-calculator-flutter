@@ -1,0 +1,69 @@
+import 'package:bmi_calculator/components/bottom_button.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
+import 'package:bmi_calculator/constants.dart';
+import 'package:bmi_calculator/screens/results_arguments.dart';
+import 'package:flutter/material.dart';
+
+class ResultsPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final ResultsArguments arguments =
+        ModalRoute.of(context).settings.arguments;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(kAppTitle),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(15),
+                alignment: Alignment.bottomLeft,
+                child: Text(
+                  'Your Result',
+                  style: kTitleTextStyle,
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: ReusableCard(
+                color: kActiveCardColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      arguments.resultText.toUpperCase(),
+                      style: kResultTextStyle,
+                    ),
+                    Text(
+                      arguments.bmiResult,
+                      style: kBmiTestStyle,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        arguments.interpretation,
+                        textAlign: TextAlign.center,
+                        style: kBodyTextStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            BottomButton(
+              title: 'RE-CALCULATE',
+              onTap: () => Navigator.pop(context),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
